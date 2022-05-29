@@ -5,7 +5,7 @@
 2. Search [your User Agent](https://duckduckgo.com/?q=my+user+agent&ia=answer).
     - Copy User Agent e.g: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0
 3. Type about:config in the address bar.
-4. Create a new entry
+4. Create a new entry.
     - Type: string
     - Name: general.useragent.override
     - Value: [your user agent](https://duckduckgo.com/?q=my+user+agent&ia=answer).
