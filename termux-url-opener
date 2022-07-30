@@ -27,7 +27,7 @@ echo -e "\t1) TouTube Audio"
 echo -e "\t2) TouTube Audio playlist"
 echo -e "\t3) TouTube Video"
 echo -e "\t4) TouTube Video playlist"
-echo -e "\t5) Tiktok Video"
+echo -e "\t5) TikTok Video"
 echo -e "\nOutput\n\tAudio: $aoutput\n\tVideo: $voutput"
 
 echo -ne "\nChoice: "
