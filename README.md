@@ -25,6 +25,8 @@ pkg install ffmpeg
 # Python modules
 pip install requests
 pip install youtube-dl
+pip install json
+pip install beautifulsoup4
 
 # Directories
 mkdir $HOME/storage/external-1/scripts
@@ -32,11 +34,13 @@ mkdir -p $HOME/bin
 
 # Dowloader
 wget https://raw.githubusercontent.com/zehr0s/mobile-setup/main/termux-url-opener -O $HOME/bin/termux-url-opener
+wget https://raw.githubusercontent.com/zehr0s/mobile-setup/main/tiktok-dl -O $HOME/bin/tiktok-dl
 chmod +x $HOME/bin/termux-url-opener
+chmod +x $HOME/bin/tiktok-dl
 
 # Spiders (wget)
-wget https://raw.githubusercontent.com/zehr0s/spiders/main/createGallery -O $HOME/storage/external-1/scripts/createGallery.py
-wget https://raw.githubusercontent.com/zehr0s/spiders/main/zahard/pwnWindBreaker -O $HOME/storage/external-1/scripts/pwnWindBreaker.py
+# wget https://raw.githubusercontent.com/zehr0s/spiders/main/createGallery -O $HOME/storage/external-1/scripts/createGallery.py
+# wget https://raw.githubusercontent.com/zehr0s/spiders/main/zahard/pwnWindBreaker -O $HOME/storage/external-1/scripts/pwnWindBreaker.py
 
 # Spiders (git)
 # git clone https://github.com/zehr0s/spiders $HOME/storage/external-1/scripts/spiders

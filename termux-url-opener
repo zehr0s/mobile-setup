@@ -1,7 +1,7 @@
 #! /data/data/com.termux/files/usr/bin/bash
 
 # Date:         May 29 2022 at 10:43:19 AM
-# Description:  Get content from yt
+# Description:  Get content from the web
 
 set -e
 
@@ -23,10 +23,11 @@ else
 fi
 
 echo -e "Options"
-echo -e "\t1) Audio"
-echo -e "\t2) Audio playlist"
-echo -e "\t3) Video"
-echo -e "\t4) Video playlist"
+echo -e "\t1) TouTube Audio"
+echo -e "\t2) TouTube Audio playlist"
+echo -e "\t3) TouTube Video"
+echo -e "\t4) TouTube Video playlist"
+echo -e "\t5) Tiktok Video"
 echo -e "\nOutput\n\tAudio: $aoutput\n\tVideo: $voutput"
 
 echo -ne "\nChoice: "
@@ -43,6 +44,10 @@ case $CHOICE in
         ;;
     4)
         youtube-dl --yes-playlist --format mp4 $url -o "$voutput/%(title)s %(id)s.%(ext)s" # --quiet
+        ;;
+    5)
+        mkdir -p "$voutput/tiktok"
+        tiktok-dl $url "$voutput/tiktok"
         ;;
 esac
 
