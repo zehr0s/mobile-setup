@@ -1,7 +1,8 @@
 # A mobile setup
 
 ## Termux
-Run this lines of code in [Termux](https://wiki.termux.com/wiki/Main_Page) to download media from YT and TT.
+To download media from YT and TT run this lines of code in [Termux](https://wiki.termux.com/wiki/Main_Page), then share an url with [Termux](https://wiki.termux.com/wiki/Intents_and_Hooks).
+
 ```bash
 # Permissions
 termux-setup-storage
@@ -39,6 +40,8 @@ chmod +x $HOME/bin/termux-url-opener
 ```
 
 ## Firefox (Nightly/Beta)
+Set Firefox to Desktop Mode permanently.
+
 1. Toggle Desktop Mode.
 2. Search [your User Agent](https://duckduckgo.com/?q=my+user+agent&ia=answer).
     - Copy User Agent e.g: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0
