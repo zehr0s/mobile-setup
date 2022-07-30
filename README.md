@@ -34,9 +34,10 @@ mkdir -p $HOME/bin
 
 # Dowloader
 wget https://raw.githubusercontent.com/zehr0s/mobile-setup/main/termux-url-opener -O $HOME/bin/termux-url-opener
-wget https://raw.githubusercontent.com/zehr0s/mobile-setup/main/tiktok-dl -O $HOME/bin/tiktok-dl
 chmod +x $HOME/bin/termux-url-opener
-chmod +x $HOME/bin/tiktok-dl
+
+wget https://raw.githubusercontent.com/zehr0s/mobile-setup/main/tiktok-dl -O /data/data/com.termux/files/usr/bin/tiktok-dl
+chmod +x /data/data/com.termux/files/usr/bin/tiktok-dl
 
 # Spiders (wget)
 # wget https://raw.githubusercontent.com/zehr0s/spiders/main/createGallery -O $HOME/storage/external-1/scripts/createGallery.py
