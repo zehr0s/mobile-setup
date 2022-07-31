@@ -55,7 +55,7 @@ elif echo $url | grep -q 'youtu\.be'; then
             ;;
     esac
 else
-    echo -e "Video origin not supported: $url"
+    echo -e "Url origin not supported: $url"
     sleep 3
 fi
 
