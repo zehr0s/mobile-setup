@@ -47,20 +47,22 @@ v_quality = meta['ItemModule'][id]['video']['videoQuality']
 v_definition = meta['ItemModule'][id]['video']['definition']
 dl_addr = meta['ItemModule'][id]['video']['playAddr']
 
-# Request video data
-r = requests.get(dl_addr, timeout=timeout, headers=headers)
-if not r.ok:
-    sys.exit(0)
-
-# Create output path
-os.makedirs(out_path, exist_ok=True)
+# Print info
 out_name = os.path.join(out_path, '{}-{}-{}-{}.{}'.format(author, id, v_quality, v_definition, v_format.lower()))
-
-# Download video
 print(
     '\nDownloading {}:\n\tUser: {}\n\tVideo ID: {}\n\tQuality: {}\n\tDefinition: {}\n\tFormat: {}'
     .format(out_name, author, id, v_quality, v_definition, v_format.lower())
 )
+
+# Request video data
+r = requests.get(dl_addr, timeout=timeout, headers=headers)
+if not r.ok:
+    sys.exit(1)
+
+# Create output path
+os.makedirs(out_path, exist_ok=True)
+
+# Download video
 with open(out_name, 'wb') as f:
     for chunk in r.iter_content(chunk_size = 1024*1024):
         if chunk:
