@@ -5,6 +5,7 @@
 
 set -e
 
+# Check for args
 if [[ $# -eq 0 ]]; then
     echo -e "Usage: $0 <video-url>"
     exit 0
@@ -12,6 +13,7 @@ else
     url=$1
 fi
 
+# Check OS
 if [ $(uname -o | grep -io "Android") ]; then
     aoutput=$HOME/storage/music
     voutput=$HOME/storage/movies
@@ -22,33 +24,39 @@ else
     voutput=$HOME/Videos
 fi
 
-echo -e "Options"
-echo -e "\t1) TouTube Audio"
-echo -e "\t2) TouTube Audio playlist"
-echo -e "\t3) TouTube Video"
-echo -e "\t4) TouTube Video playlist"
-echo -e "\t5) TikTok Video"
-echo -e "\nOutput\n\tAudio: $aoutput\n\tVideo: $voutput"
+# Check url origin
+if echo $url | grep -q 'tiktok'; then
+    mkdir -p "$voutput/tiktok"
+    tiktok-dl $url "$voutput/tiktok"
+elif echo $url | grep -q 'youtu\.be'; then
+    echo -e "Options"
+    echo -e "\t1) Audio"
+    echo -e "\t2) Audio playlist"
+    echo -e "\t3) Video"
+    echo -e "\t4) Video playlist"
+    echo -e "\nOutput\n\tAudio: $aoutput\n\tVideo: $voutput"
 
-echo -ne "\nChoice: "
-read CHOICE
-case $CHOICE in
-    1)
-        youtube-dl --audio-format mp3 --extract-audio --no-playlist $url -o "$aoutput/%(title)s %(id)s.%(ext)s" # --quiet
-        ;;
-    2)
-        youtube-dl --audio-format mp3 --extract-audio --yes-playlist $url -o "$aoutput/%(title)s %(id)s.%(ext)s" # --quiet
-        ;;
-    3)
-        youtube-dl --no-playlist --format mp4 $url -o "$voutput/%(title)s %(id)s.%(ext)s" # --quiet
-        ;;
-    4)
-        youtube-dl --yes-playlist --format mp4 $url -o "$voutput/%(title)s %(id)s.%(ext)s" # --quiet
-        ;;
-    5)
-        mkdir -p "$voutput/tiktok"
-        tiktok-dl $url "$voutput/tiktok"
-        ;;
-esac
+    echo -ne "\nChoice: "
+    read CHOICE
+    case $CHOICE in
+        1)
+            youtube-dl --audio-format mp3 --extract-audio --no-playlist $url -o "$aoutput/%(title)s %(id)s.%(ext)s" # --quiet
+            ;;
+        2)
+            youtube-dl --audio-format mp3 --extract-audio --yes-playlist $url -o "$aoutput/%(title)s %(id)s.%(ext)s" # --quiet
+            ;;
+        3)
+            mkdir -p "$voutput/youtube"
+            youtube-dl --no-playlist --format mp4 $url -o "$voutput/youtube/%(title)s %(id)s.%(ext)s" # --quiet
+            ;;
+        4)
+            mkdir -p "$voutput/youtube"
+            youtube-dl --yes-playlist --format mp4 $url -o "$voutput/youtube/%(title)s %(id)s.%(ext)s" # --quiet
+            ;;
+    esac
+else
+    echo -e "Video origin not supported: $url"
+    sleep 3
+fi
 
 echo -e "\n[!] Done!"
