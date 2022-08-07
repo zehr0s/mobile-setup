@@ -27,17 +27,12 @@ else:
     print('{} <url> <output-path>'.format(sys.argv[0]))
     sys.exit(1)
 
-# Get video source link
+# Get video source
 print('Requesting data ...')
 r = requests.post(link, timeout=timeout, headers=headers)
 bs = BeautifulSoup(r.text, 'html.parser')
-for k, target in enumerate(bs.find_all('link')):
-    if not ('www.tiktok.com' in target['href']):
-        continue
-    break
 
 # Get video meta data
-r = requests.get(target['href'], timeout=timeout, headers=headers)
 meta = re.search('{.*downloadAddr.*}', bs.prettify()).group()
 meta = json.loads(meta)
 id = list(meta['ItemModule'].keys())[0]
