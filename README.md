@@ -34,6 +34,7 @@ chmod +x $HOME/bin/termux-url-opener
 # mkdir $HOME/storage/external-1/scripts
 # wget https://raw.githubusercontent.com/zehr0s/spiders/main/createGallery -O $HOME/storage/external-1/scripts/createGallery.py
 # wget https://raw.githubusercontent.com/zehr0s/spiders/main/zahard/pwnWindBreaker -O $HOME/storage/external-1/scripts/pwnWindBreaker.py
+# git clone https://github.com/zehr0s/spiders.git 
 
 # DEPRECATED: Spiders (git)
 # git clone https://github.com/zehr0s/spiders $HOME/storage/external-1/scripts/spiders
