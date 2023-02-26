@@ -104,5 +104,3 @@ with open(out_name, 'wb') as f:
     for chunk in r4.iter_content(chunk_size = 1024*1024):
         if chunk:
             f.write(chunk)
-
-print("\n[!] Done")
