@@ -66,8 +66,7 @@ v_definition = meta['ItemModule'][id]['video']['definition']
 dl_addr = meta['ItemModule'][id]['video']['playAddr']
 
 # Print info
-out_path = os.path.join(out_path, author)
-out_name = os.path.join(out_path, '{}-{}-{}.{}'.format(id, v_quality, v_definition, v_format.lower()))
+out_name = os.path.join(out_path, '{}-{}-{}-{}.{}'.format(author, id, v_quality, v_definition, v_format.lower()))
 print(
     '\nDownloading {}:\n\tUser: {}\n\tVideo ID: {}\n\tQuality: {}\n\tDefinition: {}\n\tFormat: {}'
     .format(out_name, author, id, v_quality, v_definition, v_format.lower())
