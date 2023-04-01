@@ -1,7 +1,5 @@
 #! /data/data/com.termux/files/usr/bin/python3
 
-#! /usr/bin/env python3
-
 # Author:       Author
 # Date:         July 30 2022 at 08:56:18 AM
 # Description:  TikTok Video Downloader
@@ -15,10 +13,12 @@ import json
 import random
 import string
 import requests
+import datetime
 from bs4 import BeautifulSoup
 
 ''' Variables '''
 
+mobile = True
 out_path = 'dl_videos'
 timeout = 15
 headers = {
@@ -42,36 +42,53 @@ else:
     print('{} <url> <output-path>'.format(sys.argv[0]))
     sys.exit(1)
 
-print('Requesting data ...')
-
 # Get video source
-# "canonical": "https://www.tiktok.com/@sluts4plantsandsadmusic/video/7201276881952410886"
+# "canonical": "https://www.tiktok.com/@sluts4plantsandsadmusic/video/7201276881952410886" from  https://vm.tiktok.com/ZMYA9S49L/
 r0 = requests.get(link, timeout=timeout, headers=headers)
 bs = BeautifulSoup(r0.text, 'html.parser')
 
 # Get video meta data
 meta = re.search('{.*AppContext.*}', bs.prettify()).group()
 meta = json.loads(meta)
-video_url  = meta['SEO']['canonical']
+# with open('data.json', 'w') as f:
+#     f.write(json.dumps(meta))
+video_url  = meta['SEOState']['canonical']
 
 # Get download meta data
-r1 = requests.get(video_url, timeout=timeout, headers=headers)
-bs = BeautifulSoup(r1.text, 'html.parser')
-meta = json.loads(re.search('{.*downloadAddr.*}', bs.prettify()).group())
-id = list(meta['ItemModule'].keys())[0]
-author = meta['ItemModule'][id]['author']
-v_format = meta['ItemModule'][id]['video']['format']
-v_quality = meta['ItemModule'][id]['video']['videoQuality']
-v_definition = meta['ItemModule'][id]['video']['definition']
-dl_addr = meta['ItemModule'][id]['video']['playAddr']
+try:
+    r1 = requests.get(video_url, timeout=timeout, headers=headers)
+    bs = BeautifulSoup(r1.text, 'html.parser')
+    with open('data.json', 'w') as f:
+        f.write(bs.prettify())
+    sys.exit()
+    meta = json.loads(re.search('{.*downloadAddr.*}', bs.prettify()).group())
+    id = list(meta['ItemModule'].keys())[0]
+    author = meta['ItemModule'][id]['author']
+    v_format = meta['ItemModule'][id]['video']['format']
+    v_quality = meta['ItemModule'][id]['video']['videoQuality']
+    v_definition = meta['ItemModule'][id]['video']['definition']
+    dl_addr = meta['ItemModule'][id]['video']['playAddr']
 
-# Print info
-out_name = os.path.join(out_path, '{}-{}-{}-{}.{}'.format(author, id, v_quality, v_definition, v_format.lower()))
-print(
-    '\nDownloading {}:\n\tUser: {}\n\tVideo ID: {}\n\tQuality: {}\n\tDefinition: {}\n\tFormat: {}'
-    .format(out_name, author, id, v_quality, v_definition, v_format.lower())
-)
-
+    # Print info
+    out_path = os.path.join(out_path, author)
+    out_name = os.path.join(out_path, '{}-{}-{}.{}'.format(id, v_quality, v_definition, v_format.lower()))
+    print(
+        'Downloading {}:\n\tUser: {}\n\tVideo ID: {}\n\tQuality: {}\n\tDefinition: {}\n\tFormat: {}'
+        .format(out_name, author, id, v_quality, v_definition, v_format.lower())
+    )
+except:
+    # Print info
+    id = video_url.split('/')[-1]
+    author = video_url.split('/')[-3][1:]
+    if mobile:
+        out_name = os.path.join(out_path, '{}-{}-{}.{}'.format(author,id,datetime.date.today(),'mp4'))
+    else:
+        out_path = os.path.join(out_path, author)
+        out_name = os.path.join(out_path, '{}-{}.{}'.format(id,datetime.date.today(),'mp4'))
+    print(
+        'Downloading {}:\n\tUser: {}\n\tVideo ID: {}'
+        .format(out_name, author,id)
+    )
 
 # Request video download url
 
@@ -109,7 +126,6 @@ for dl_try in range(32):
     except IndexError:
         print(f'\tTry: {dl_try+1}')
 
-print(f'\tRaw Video URL: {downloadables[-1]}')
 r4 = requests.get(downloadables[-1], headers=headers)
 if not r4.ok:
     raise Exception(f"Status Code: {r4.status_code}")
