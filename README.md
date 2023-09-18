@@ -22,21 +22,16 @@ pip install beautifulsoup4
 # Bin directory
 mkdir -p $HOME/bin
 
-# TT Downloader
-wget https://raw.githubusercontent.com/zehr0s/mobile-setup/main/tiktok-dl -O /data/data/com.termux/files/usr/bin/tiktok-dl
+# TikTok Downloader
+wget https://raw.githubusercontent.com/zehr0s/spiders/main/handmade/tiktok/tiktok_dl.py -O /data/data/com.termux/files/usr/bin/tiktok-dl
+sed -i '1c\#! /data/data/com.termux/files/usr/bin/python3' /data/data/com.termux/files/usr/bin/tiktok-dl
 chmod +x /data/data/com.termux/files/usr/bin/tiktok-dl
 
-# YT Downloader
+# Url Opener + YouTube Downloader
 wget https://raw.githubusercontent.com/zehr0s/mobile-setup/main/termux-url-opener -O $HOME/bin/termux-url-opener
 chmod +x $HOME/bin/termux-url-opener
 
-# DEPRECATED: Spiders (wget)
-# mkdir $HOME/storage/external-1/scripts
-# wget https://raw.githubusercontent.com/zehr0s/spiders/main/createGallery -O $HOME/storage/external-1/scripts/createGallery.py
-# wget https://raw.githubusercontent.com/zehr0s/spiders/main/zahard/pwnWindBreaker -O $HOME/storage/external-1/scripts/pwnWindBreaker.py
-# git clone https://github.com/zehr0s/spiders.git 
-
-# DEPRECATED: Spiders (git)
+# Spiders [External Storage]
 # git clone https://github.com/zehr0s/spiders $HOME/storage/external-1/scripts/spiders
 ```
 
